@@ -6,7 +6,6 @@ import shortid from 'shortid';
 import AsyncStorage from '@react-native-community/async-storage';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useEffect } from 'react';
-import { event } from 'react-native-reanimated';
 
 // https://6012951054044a00172dc3ce.mockapi.io/test/test
 
@@ -25,14 +24,6 @@ const Add = ({navigation,route}) =>{
     }).then(res => res.json())
     .then(data => console.log(data))
     .catch(err => console.log(err))
-  }
-
-  const handleName = event =>{
-    console.log(event.target.value)
-  }
-
-  const handleTotalNoSeason = event =>{
-    console.log(event.target.value);
   }
   
 

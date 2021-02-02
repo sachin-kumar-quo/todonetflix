@@ -1,8 +1,6 @@
 import React,{useState, useEffect} from 'react';
-import Icon from 'react-native-vector-icons/Ionicons';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { 
-  Fab, 
   ListItem,
   Button,
   CheckBox,
@@ -48,19 +46,10 @@ const Home = ({navigation, route}) =>{
       })
       let json = await response.json()
       console.log(json);
+      getData();
     } catch (error) {
       console.log(error);
     }
-    
-    // .then(response => response.json())
-    // .then(data =>{
-    //   console.log(data);
-    //   if(data?.error){
-    //     alert('there is an error fetching data');
-    //   }
-    //   console.log('delete');
-    // })
-    // .catch(err => console.log(err))
   }
   const markComplete =() =>{
 
@@ -69,6 +58,7 @@ const Home = ({navigation, route}) =>{
 
 
   return(
+    <>
       <ScrollView contentContainerStyle={styles.container}>
         {listOfSeasons.length === 0 ?(
           <Container style={styles.container}>
@@ -78,7 +68,7 @@ const Home = ({navigation, route}) =>{
           </Container>
         ) :(
           <>
-            <H1 style={{color:"#00ff00"}}>
+            <H1 style={{color:"#00ff00",textAlign:'center'}}>
               Next Series to Watch
             </H1>
             <List>
@@ -89,23 +79,27 @@ const Home = ({navigation, route}) =>{
         <Text style={{color:"#00ff00",alignSelf:'center'}}>
           List of seasons goes here
         </Text>
+        <View style={styles.row}>
+          <Text style={{color:'#00ffff',flex:1,textAlign:'center',fontSize:16}}>Season Name</Text>
+          <Text style={{color:'#00ffff',flex:1,textAlign:'center',fontSize:16}}>No of Season</Text>
+          <Text style={{color:'#00ffff',flex:.5,textAlign:'center',fontSize:16}}>Edit</Text>
+          <Text style={{color:'#00ffff',flex:.5,textAlign:'center',fontSize:16}}>Delete</Text>
+        </View>
         {listOfSeasons.length!=0 && listOfSeasons.map((season,index)=>{
           return(
             <View key={index} style={styles.row}>
-              <Text style={{color:'#00ff00',flex:1,textAlign:'center'}}>{season.name}</Text>
-              <Text style={{color:'#00ff00',flex:1,textAlign:'center'}}>{season.totalNoSeason}</Text>
-              <TouchableOpacity  style={{flex:.5}}><Text style={{color:'orange',flex:1,textAlign:'center'}}>Edit</Text></TouchableOpacity>
-              <TouchableOpacity onPress={()=>deleteSeason(season.id)} style={{flex:.5}}><Text style={{color:'red',flex:1,textAlign:'center'}}>Delete</Text></TouchableOpacity>
+              <Text style={{color:'#00ff00',flex:1,textAlign:'center',fontSize:15}}>{season.name}</Text>
+              <Text style={{color:'#00ff00',flex:1,textAlign:'center',fontSize:15}}>{season.totalNoSeason}</Text>
+              <TouchableOpacity onPress={()=>navigation.navigate('Edit',{seasonId:season.id})} style={{flex:.5}}><Text style={{color:'orange',flex:1,textAlign:'center',fontSize:15}}>Edit</Text></TouchableOpacity>
+              <TouchableOpacity onPress={()=>deleteSeason(season.id)} style={{flex:.5}}><Text style={{color:'red',flex:1,textAlign:'center',fontSize:15}}>Delete</Text></TouchableOpacity>
             </View>
           )
         })}
-        <Fab
-          style={{backgroundColor:'#5067ff'}}
-          position="bottomRight"
-          onPress={()=>navigation.navigate('Add')}>
-          <Icon name="add" />
-        </Fab>
       </ScrollView>
+      <View style={{backgroundColor:"#42e6f5",height:40}}>
+        <TouchableOpacity onPress={()=>navigation.navigate('Add')}><Text style={{fontSize:20,textAlign:'center',fontWeight:'bold'}}>Add New Season To List</Text></TouchableOpacity>
+      </View>
+    </>
   )
 }
 export default Home;

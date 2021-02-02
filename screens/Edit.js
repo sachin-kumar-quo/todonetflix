@@ -1,11 +1,19 @@
-import React from 'react';
+import React,{useState, useEffect} from 'react';
 
-import { Text, StyleSheet } from 'react-native';
+import { Text, StyleSheet, TextInput,ScrollView } from 'react-native';
+import { Container, Form, Item, Button, H1} from 'native-base';
 
-const Edit = () =>{
+
+const Edit = ({navigation,route}) =>{
+  const [name,setName] = useState("");
+  const [totalNoSeason,setTotalNoSeason] = useState('');
+
+  useEffect(()=>{
+    getData();
+  },[])
 
   const updateData =(seasonToUpdate) =>{
-    fetch(`https://6012951054044a00172dc3ce.mockapi.io/test/netflix/${seasonToUpdate.id}`,{
+    fetch(`https://6012951054044a00172dc3ce.mockapi.io/test/netflix/${route.params.seasonId}`,{
       method:"PUT",
       headers:{'Content-Type' : 'application/json'},
       body:JSON.stringify(seasonToUpdate)
@@ -13,11 +21,55 @@ const Edit = () =>{
     .then(data => console.log(data))
     .catch(err => console.log(err))
   }
+  const getData = ()=>{
+    fetch(`https://6012951054044a00172dc3ce.mockapi.io/test/netflix/${route.params.seasonId}`,{
+      method:"GET",
+      headers: { 'Content-Type': 'application/json' }
+    }).then(response => response.json())
+    .then(data =>{
+      
+      if(data?.error){
+        alert('there is an error fetching data');
+      }
+      setName(data.name);
+      setTotalNoSeason(data.totalNoSeason);
+    })
+    .catch(err => console.log(err))
+  } 
 
+  const updateList =()=>{
+    const seasonToAdd = {
+      name : name,
+      totalNoSeason : totalNoSeason,
+      isWatched : false
+    };
+    updateData(seasonToAdd);
+    navigation.navigate('Home');
+  }
 
 
   return(
-      <Text>Edit</Text>
+    <Container style={styles.container} >
+      <ScrollView contentContainerStyle={{flexGrow:1}}>
+        <H1 style={styles.heading}>Update Season</H1>
+        <Form>
+          <TextInput 
+            placeholder="Season Name" 
+            style={{color:"#eeeeee"}}
+            onChangeText={text=>setName(text)}
+            value={name}/>
+          <TextInput 
+            placeholder="Number of Seasons" 
+            style={{color:"#eeeeee"}}
+            onChangeText={text=>setTotalNoSeason(text)}
+            value={totalNoSeason}/>
+          <Button rounded block onPress={updateList}>
+            <Text style={{color:"#eee"}}>Add</Text>
+          </Button>
+          <Text>{name} hello  {totalNoSeason}</Text>
+        </Form>
+      </ScrollView>
+    </Container>
   )
 }
 export default Edit;
