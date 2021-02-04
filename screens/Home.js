@@ -33,10 +33,10 @@ const Home = ({navigation, route}) =>{
       if(data?.error){
         alert('there is an error fetching data');
       }
-      data = data.slice((offSet*20),((offSet+1)*20)-1);
+      data = data.slice((offSet*50),((offSet+1)*50)-1);
       setListOfSeasons(data);
       setOffSet(offSet+1);
-      // console.log(listOfSeasons.length)
+      console.log(listOfSeasons.length)
     })
     .catch(err => console.log(err))
   } 
@@ -51,10 +51,10 @@ const Home = ({navigation, route}) =>{
       if(data?.error){
         alert('there is an error fetching data');
       }
-      data = data.slice((offSet*20),((offSet+1)*20)-1);
+      data = data.slice((offSet*50),((offSet+1)*50)-1);
       setListOfSeasons([...listOfSeasons,...data]);
       setOffSet(offSet+1);
-      // console.log(listOfSeasons.length)
+      console.log(listOfSeasons.length)
     })
     .catch(err => console.log(err))
   } 
