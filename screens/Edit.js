@@ -1,7 +1,7 @@
 import React,{useState, useEffect} from 'react';
 
 import { Text, StyleSheet, TextInput,ScrollView } from 'react-native';
-import { Container, Form, Item, Button, H1} from 'native-base';
+import { Container, Form, Button, H1} from 'native-base';
 
 
 const Edit = ({navigation,route}) =>{

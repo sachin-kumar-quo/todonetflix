@@ -1,20 +1,14 @@
 import React,{useState} from 'react';
 
-import { Text, StyleSheet, TextInput } from 'react-native';
-import { Container, Form, Item, Button, H1} from 'native-base';
+import { Text, StyleSheet, TextInput, ScrollView} from 'react-native';
+import { Container, Form, Button, H1} from 'native-base';
 import shortid from 'shortid';
-import AsyncStorage from '@react-native-community/async-storage';
-import { ScrollView } from 'react-native-gesture-handler';
-import { useEffect } from 'react';
 
 // https://6012951054044a00172dc3ce.mockapi.io/test/test
 
 const Add = ({navigation,route}) =>{
   const [name,setName] = useState("");
   const [totalNoSeason,setTotalNoSeason] = useState('');
-
-  useEffect(()=>{
-  })
 
   const sendData = (seasonToAdd) =>{
     fetch("https://6012951054044a00172dc3ce.mockapi.io/test/netflix",{
@@ -25,8 +19,6 @@ const Add = ({navigation,route}) =>{
     .then(data => console.log(data))
     .catch(err => console.log(err))
   }
-  
-
 
   const addToList = (event) =>{
     event.preventDefault();
@@ -47,7 +39,6 @@ const Add = ({navigation,route}) =>{
       console.log(error);
     }
   }
-
 
   return(
       <Container style={styles.container} >
@@ -89,4 +80,4 @@ const styles = StyleSheet.create({
     formItem: {
       marginBottom: 20,
     },
-  });
+});

@@ -1,5 +1,5 @@
 import React,{useState, useEffect} from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity,FlatList } from 'react-native';
+import { View, Text, StyleSheet,TouchableOpacity,FlatList } from 'react-native';
 import { 
   List,
   H1,
@@ -75,37 +75,8 @@ const Home = ({navigation, route}) =>{
     }
   }
   
-  const listHead = () =>{
-    return(
-      <>
-      <Container style={styles.container}>
-        <H1 style={{color:"#00ff00",alignSelf:'center'}}>
-          Watch List is Empty please Add 
-        </H1>
-      </Container>
-      <Text style={{color:"#00ff00",alignSelf:'center'}}>
-        List of seasons goes here
-      </Text>
-      <View style={styles.row}>
-        <Text style={{color:'#00ffff',flex:1,textAlign:'center',fontSize:16}}>Season Name</Text>
-        <Text style={{color:'#00ffff',flex:1,textAlign:'center',fontSize:16}}>No of Season</Text>
-        <Text style={{color:'#00ffff',flex:.5,textAlign:'center',fontSize:16}}>Edit</Text>
-        <Text style={{color:'#00ffff',flex:.5,textAlign:'center',fontSize:16}}>Delete</Text>
-      </View>
-      </>
-    )
-  }
-
-  const listFoot =()=>{
-    return(
-      <View style={{backgroundColor:"#42e6f5",height:40}}>
-        <TouchableOpacity onPress={()=>navigation.navigate('Add')}><Text style={{fontSize:20,textAlign:'center',fontWeight:'bold'}}>Add New Season To List</Text></TouchableOpacity>
-      </View>
-    )
-  }
 
   const renderListItem =(season)=>{
-    // console.log(season);
     return(
     <ListItems id={season.item.id} name={season.item.name} totalNoSeason={season.item.totalNoSeason} navigation={navigation} deleteSeason={deleteSeason}/>
     )
