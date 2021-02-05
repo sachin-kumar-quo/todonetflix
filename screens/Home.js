@@ -85,7 +85,7 @@ const Home = ({navigation, route}) =>{
 
 
   return(
-    <View style={{flex:.8}}>
+    <View style={{flex:.85}}>
       <View style={styles.container}>
         {listOfSeasons.length === 0 ?(
           <Container style={styles.container}>
@@ -118,6 +118,7 @@ const Home = ({navigation, route}) =>{
           keyExtractor={item=>item.id}
           extraData={listOfSeasons}
           onEndReached={loadMoreData}
+          onEndReachedThreshold={0.1}
           ItemSeparatorComponent={() => <View style={styles.separator} />}
           />}
       </View>
